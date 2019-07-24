@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+   flaskapp:
+    image: gcuadrad/flaskapp
+    container_name: flaskapp
+    volumes:
+      - ./flaskapp:/usr/src/app
+    ports:
+      - 5000:80
