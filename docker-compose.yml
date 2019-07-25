@@ -16,7 +16,7 @@ services:
     ports:
       - 8080:8080
   flaskapp:
-    build: ./flaskapp
+    image: gcuadrad/flaskapp
     volumes:
       - ./flaskapp:/usr/src/app
     depends_on:
