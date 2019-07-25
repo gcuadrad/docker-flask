@@ -1,6 +1,11 @@
 from flask import Flask, render_template, request
+import flask_sqlalchemy
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:example@172.17.0.1:3306/mydb'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = flask_sqlalchemy.SQLAlchemy(app)
 
 @app.route('/')
 def index():
