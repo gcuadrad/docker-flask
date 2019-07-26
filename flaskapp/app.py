@@ -1,9 +1,8 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://root:example@172.17.0.1:3306/mydb'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class Comments(db.Model):
@@ -13,7 +12,9 @@ class Comments(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    comments = Comments.query.all()
+
+    return render_template('index.html', comments=comments)
 
 @app.route('/sign')
 def sign():
@@ -23,8 +24,11 @@ def sign():
 def process():
     name = request.form['name']
     comment = request.form['comment']
+    signature = Comments(name=name, comment=comment)
+    db.session.add(signature)
+    db.session.commit()
 
-    return render_template('index.html', name=name, comment=comment)
+    return redirect(url_for('index'))
 
 @app.route('/page/<place>')
 def page(place):
