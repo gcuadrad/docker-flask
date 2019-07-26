@@ -11,11 +11,12 @@ It is part of a little course I took of Flask, a Python framework. I mixed it wi
 - https://www.youtube.com/watch?v=YFl2mCHdv24
 - https://www.youtube.com/watch?v=Qw9zlE3t8Ko
 - https://nickjanetakis.com/blog/tag/docker-tips-tricks-and-tutorials
+- https://docs.docker.com/engine/reference/builder/
+- https://docs.docker.com/compose/compose-file/#compose-and-docker-compatibility-matrix
 
 ## How to run
 - Build project.
 ```
-docker build -t gcuadrad/flaskapp ./flaskapp
 docker-compose up
 ```
 

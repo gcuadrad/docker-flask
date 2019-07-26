@@ -1,3 +1,4 @@
+# File documentation https://docs.docker.com/engine/reference/builder/
 # The container starts from python 3 image
 FROM python:3
 

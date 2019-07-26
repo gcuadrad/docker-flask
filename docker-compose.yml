@@ -1,13 +1,36 @@
+# File documentation: https://docs.docker.com/compose/compose-file/#compose-and-docker-compatibility-matrix
+# Version specified the docker-compose.yml file version.
 version: '3'
 
 services:
-  db: # Use root/example as user/password credentials
+  flaskapp:
+    # build the new images with the data in the specified directory (current in this case ".")
+    # If images setting is aviable, Compose names the built image with name specified in image.
+    build: .
+    # Image to start the container, if the images is not found in your local.
+    # Compose will to pull unless build setting is available.
+    image: gcuadrad/flaskapp
+    # Volumes mount host paths or named volumes inside the container, format:host_path:container_path.
+    volumes:
+      - ./flaskapp:/usr/src/app
+    # Restart the container under certain circumtances:
+    # "no": Under any circumtances
+    # "always": The opposite to the above
+    # "on-failure": if the exit code indicates an on-failure error
+    restart: on-failure
+    # Depends on make the current container starts after the specified containers are up.
+    depends_on:
+      - db
+    # Ports expose the container ports through host ports, format:host_port:container_port. (Or something like that...)
+    ports:
+      - 5000:80
+  db:
     image: mysql
-    container_name: db
     command: --default-authentication-plugin=mysql_native_password
     restart: always
+    # Environment create environment variables inside the container.
     environment:
-      MYSQL_ROOT_PASSWORD: example
+      - MYSQL_ROOT_PASSWORD=example # Use root/example as user/password credentials
     ports:
       - 3306:3306
   adminer:
@@ -15,11 +38,3 @@ services:
     restart: always
     ports:
       - 8080:8080
-  flaskapp:
-    image: gcuadrad/flaskapp
-    volumes:
-      - ./flaskapp:/usr/src/app
-    depends_on:
-      - db
-    ports:
-      - 5000:80
