@@ -20,8 +20,6 @@ It is part of a little course I took of Flask, a Python framework. I mixed it wi
 docker-compose up
 ```
 
-- Create database in Adminier (localhost:8080) -> root:example -> create database named mydb.
-
 - Enter to the project container and open python console then create the table.
 ```
 docker ps -a

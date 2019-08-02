@@ -31,6 +31,7 @@ services:
     # Environment create environment variables inside the container.
     environment:
       - MYSQL_ROOT_PASSWORD=example # Use root/example as user/password credentials
+      - MYSQL_DATABASE=mydb # Allows you to specify the name of a database to be created on image startup.
     ports:
       - 3306:3306
   adminer:
